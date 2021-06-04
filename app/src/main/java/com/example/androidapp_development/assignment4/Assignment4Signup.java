@@ -63,7 +63,7 @@ public class Assignment4Signup extends AppCompatActivity {
                         t.show();
                     }
                     else {
-                    Intent intent = new Intent(this, signup4Activity.class);
+                    Intent intent = new Intent(this, Signup4Activity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("description", description);
                     intent.putExtra("occupation", occupation);

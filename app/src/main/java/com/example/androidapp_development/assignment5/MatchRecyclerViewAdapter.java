@@ -60,4 +60,8 @@ public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchCardView
     public int getItemCount() {
         return matches.size();
     }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
+    }
 }

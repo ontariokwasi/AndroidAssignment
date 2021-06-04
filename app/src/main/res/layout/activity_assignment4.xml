@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".assignment4.signup4Activity">
+    tools:context=".assignment4.Signup4Activity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

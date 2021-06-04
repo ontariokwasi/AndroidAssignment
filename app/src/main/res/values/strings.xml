@@ -76,6 +76,7 @@
     <string name="_00_00">00:00</string>
     <string name="max_distance_search">Max. Distance Search</string>
     <string name="edit">edit</string>
+    <string name="assignment_4_to_8_label">Assignment 4, 5,6,7,8,extra</string>
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>

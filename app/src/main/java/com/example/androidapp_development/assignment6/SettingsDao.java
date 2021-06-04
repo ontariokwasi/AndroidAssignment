@@ -16,9 +16,6 @@ public interface SettingsDao {
     @Insert
     void insertAll(UserSettings... settings);
 
-    @Query("Delete from usersettings where 1")
-    void deleteAll();
-
     @Update
     void update(UserSettings settings);
 }

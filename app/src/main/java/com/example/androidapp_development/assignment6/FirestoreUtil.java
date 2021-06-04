@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FirestoreUtil {
-    public static List<Match> LOCAL_MATCHES_DATA = new ArrayList<>();
-    static final String JSONSTRING = "[\n" +
+    public static List<Match> REMOTE_MATCHES_DATA = new ArrayList<>();
+    static final String JSON_STRING = "[\n" +
             " {\n" +
             "      \"imageUrl\": \"https://i.imgur.com/fF3Iiih.jpg\",\n" +
             "      \"liked\" : false,\n" +
@@ -67,7 +67,7 @@ public class FirestoreUtil {
             "]";
 
     private static FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    public static List<Match> initData(){
+    public static void initData(){
         firestore.collection("matches").get().addOnSuccessListener(q->{
             if (q.getDocuments().isEmpty()) {
                 try {
@@ -76,18 +76,19 @@ public class FirestoreUtil {
                     e.printStackTrace();
                 }
             }
+            else {
+                retrieveAllMatches();
+            }
         });
-
-        return retrieveAllMatches();
     }
     private static void  uploadMatches() throws JSONException {
-        JSONArray jsonArray = new JSONArray(JSONSTRING);
+        JSONArray jsonArray = new JSONArray(JSON_STRING);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         for (int i=0;i<jsonArray.length(); i++){
-            db.collection("matches")
-                    .add(Match.fromJSonArray((JSONObject) jsonArray.get(i)))
-                    .addOnSuccessListener(documentReference -> Log.d("UPLOAD", "Added with ID: "+documentReference.getId()))
-                    .addOnFailureListener(e -> Log.d("UPLOAD", e.getMessage()));
+            Match match = Match.fromJSonArray((JSONObject) jsonArray.get(i));
+            db.collection("matches").document(match.getUid()).set(match)
+                    .addOnSuccessListener(v -> REMOTE_MATCHES_DATA.add(match))
+                    .addOnFailureListener(e -> Log.d("UPLOAD_FAILED", e.getMessage()));
         }
     }
 
@@ -105,16 +106,16 @@ public class FirestoreUtil {
                 matches.add(match);
             });
         });
-        LOCAL_MATCHES_DATA = matches;
+        REMOTE_MATCHES_DATA = matches;
         return matches;
     }
     public static void updateLike(Match match){
-       firestore.collection("matches").whereEqualTo("uid", match.getUid()).limit(1).get().addOnSuccessListener(task->{
-           if(!task.isEmpty() && !task.getDocuments().isEmpty()){
-               String documentId = task.getDocuments().get(0).getId();
-               firestore.collection("matches").document(documentId).set(match);
-           }
-       });
+        firestore.collection("matches").whereEqualTo("uid", match.getUid()).limit(1).get().addOnSuccessListener(task->{
+            if(!task.isEmpty() && !task.getDocuments().isEmpty()){
+                String documentId = task.getDocuments().get(0).getId();
+                firestore.collection("matches").document(documentId).set(match);
+            }
+        });
 
     }
 }

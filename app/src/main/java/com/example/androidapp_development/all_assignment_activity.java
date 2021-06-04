@@ -9,6 +9,8 @@ import com.example.androidapp_development.assignment2.signup2MainActivity;
 import com.example.androidapp_development.assignment3.signup3Activity;
 import com.example.androidapp_development.assignment4.Assignment4Signup;
 import com.example.androidapp_development.assignment6.FirestoreUtil;
+import com.example.androidapp_development.assignment6.LocationService;
+import com.example.androidapp_development.assignment6.SettingsRepository;
 
 public class all_assignment_activity extends AppCompatActivity {
 
@@ -28,6 +30,11 @@ public class all_assignment_activity extends AppCompatActivity {
             startActivity(new Intent(all_assignment_activity.this, Assignment4Signup.class));
         });
 
-        new Thread(()-> FirestoreUtil.initData()).start();
+        new Thread(()-> {
+            LocationService.init(this);
+            FirestoreUtil.initData();
+            SettingsRepository.init(getApplicationContext());
+        }).start();
+
     }
 }
