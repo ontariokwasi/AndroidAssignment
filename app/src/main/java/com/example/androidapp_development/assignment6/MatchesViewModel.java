@@ -43,10 +43,13 @@ public class MatchesViewModel extends ViewModel {
     }
 
     private boolean isWithinRadius(Match match, float radius){
-        Location matchLocation = new Location(LocationService.CURRENT_LOCATION);
-        matchLocation.setLatitude(Double.parseDouble(match.getLat()));
-        matchLocation.setLongitude(Double.parseDouble(match.getLongitude()));
-        float distance =  LocationService.CURRENT_LOCATION.distanceTo(matchLocation)/1609; // miles
-        return distance <= radius;
+        if(LocationService.CURRENT_LOCATION != null){
+            Location matchLocation = new Location(LocationService.CURRENT_LOCATION);
+            matchLocation.setLatitude(Double.parseDouble(match.getLat()));
+            matchLocation.setLongitude(Double.parseDouble(match.getLongitude()));
+            float distance = LocationService.CURRENT_LOCATION.distanceTo(matchLocation) / 1609; // miles
+            return distance <= radius;
+        }
+        return true; // if unable to get the device's current location, show all matches
     }
 }

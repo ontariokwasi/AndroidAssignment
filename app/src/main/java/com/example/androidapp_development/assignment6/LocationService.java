@@ -17,11 +17,13 @@ public class LocationService {
     public static void init(Activity activity) {
         FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity);
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity,new String[]{"ACCESS_FINE_LOCATION"},0);
+            ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
 
+        }else {
+            fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, null).addOnSuccessListener(location->{
+                CURRENT_LOCATION = location;
+            });
         }
-        fusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, null).addOnSuccessListener(location->{
-            CURRENT_LOCATION = location;
-        });
+
     }
 }

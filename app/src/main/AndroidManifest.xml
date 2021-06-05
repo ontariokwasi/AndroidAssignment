@@ -16,7 +16,7 @@
         <activity android:name=".assignment4.Assignment4Signup" />
         <activity android:name=".assignment3.signup3Activity" />
         <activity android:name=".assignment3.Profile3_Activity" />
-        <activity android:name=".all_assignment_activity">
+        <activity android:name=".All_assignment_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

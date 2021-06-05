@@ -40,7 +40,10 @@ public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchCardView
         Match match = matches.get(position);
         holder.getMatchNameView().setText(match.getName());
         Picasso.get().load(match.getImageUrl()).into(holder.getMatchImageView());
-        if(!match.isLiked()){
+        if(match.isLiked()){
+            holder.getLikeButton().setImageDrawable(AppCompatResources.getDrawable(holder.getLikeButton().getContext(), android.R.drawable.star_big_on));
+        }
+        else{
             holder.getLikeButton().setImageDrawable(AppCompatResources.getDrawable(holder.getLikeButton().getContext(), R.drawable.like));
         }
         holder.getLikeButton().setOnClickListener(v-> {

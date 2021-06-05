@@ -6,16 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp_development.R;
-import com.example.androidapp_development.assignment6.Match;
 import com.example.androidapp_development.assignment6.MatchesViewModel;
-
-import java.util.List;
 
 public class MatchesFragment extends Fragment {
 

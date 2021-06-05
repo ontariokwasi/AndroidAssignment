@@ -19,8 +19,9 @@ public class SettingsRepository {
         }
         else{
             settings = new UserSettings();
-            settings.setSearchDistance(String.valueOf(Integer.MAX_VALUE));
+            settings.setSearchDistance("1000"); // using 1000 miles range by default
             settings.setReminderTime("00:00"); // all default values
+            settingsDao.insertAll(settings);
         }
     }
 
